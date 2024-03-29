@@ -1,0 +1,51 @@
+/* Navbar logotipi uchun stili */
+.navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  /* Navbar linklari uchun stili */
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Aktiv nav-item uchun stili */
+  .navbar-nav .nav-item.active .nav-link {
+    font-weight: bold;
+  }
+  
+  /* Dropdown-menu uchun stili */
+  .dropdown-menu {
+    background-color: #f8f9fa;
+  }
+  
+  /* Dropdown-menu ichidagi itemlarga bo'lak berish */
+  .dropdown-menu .dropdown-divider {
+    border-top: 1px solid #dee2e6;
+  }
+  
+  /* Disabled nav-link uchun stili */
+  .navbar-nav .nav-link.disabled {
+    color: #6c757d;
+  }
+  
+  /* Search input uchun stili */
+  .form-control {
+    border-radius: 20px;
+  }
+  
+  /* Search tugmasi uchun stili */
+  .btn-outline-success {
+    border-radius: 20px;
+  }
+  
+
+  .carousel-item {
+    height: 100vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }

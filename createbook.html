@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection of Books</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+    <div><a href="./index.html"><button type="button">Home</button></a></div>
+  
+<div class="container">
+  <h2>Add New Book</h2>
+  <form id="bookForm">
+    <div class="form-group">
+      <label for="bookName">Book Name:</label>
+      <input type="text" class="form-control" id="bookName" required>
+    </div>
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input type="text" class="form-control" id="author" required>
+    </div>
+    <div class="form-group">
+      <label for="createdTime">Created Time:</label>
+      <input type="datetime-local" class="form-control" id="createdTime" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+
+  <h2>Books Table</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Book Name</th>
+        <th>Author</th>
+        <th>Created Time</th>
+        <th>Action</th> <!-- New column for action buttons -->
+      </tr>
+    </thead>
+    <tbody id="booksTableBody"></tbody>
+  </table>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // Connect the form
+  const bookForm = document.getElementById('bookForm');
+  // Connect the table
+  const booksTableBody = document.getElementById('booksTableBody');
+  
+  // Function to save the form
+  function save(e) {
+    e.preventDefault();
+    const bookName = document.getElementById('bookName').value;
+    const author = document.getElementById('author').value;
+    const createdTime = new Date(document.getElementById('createdTime').value);
+    const currentTime = new Date();
+    
+    // Creating a new book object
+    const newBook = {
+      name: bookName,
+      author: author,
+      createdTime: createdTime
+    };
+    
+    // Adding to the local database (e.g., LocalStorage)
+    // Changes are needed here, I'll just show an example
+    let books = JSON.parse(localStorage.getItem('books')) || [];
+    books.push(newBook);
+    localStorage.setItem('books', JSON.stringify(books));
+    
+    // Reset the form
+    bookForm.reset();
+    
+    // Show the added book
+    console.log('New Book:', newBook);
+    
+    // Adding the book to the table with action buttons
+    booksTableBody.innerHTML += `
+      <tr>
+        <td>${bookName}</td>
+        <td>${author}</td>
+        <td>${currentTime.toLocaleString()}</td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm delete-btn">Delete</button>
+          <button type="button" class="btn btn-primary btn-sm update-btn">Update</button>
+        </td>
+      </tr>
+    `;
+  }
+  
+  // Listening for form submission
+  bookForm.addEventListener('submit', save);
+
+  // Add event listeners for delete and update buttons
+  booksTableBody.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete-btn')) {
+      // Delete button clicked
+      const row = e.target.closest('tr');
+      row.remove(); // Remove the row from the table
+      // Perform additional deletion logic here (e.g., delete from database)
+    } else if (e.target.classList.contains('update-btn')) {
+      // Update button clicked
+      const row = e.target.closest('tr');
+      const bookName = row.cells[0].textContent;
+      const author = row.cells[1].textContent;
+      // Perform additional update logic here (e.g., populate form fields for update)
+      document.getElementById('bookName').value = bookName;
+      document.getElementById('author').value = author;
+      // You can further enhance this for updating the date as well if needed
+    }
+  });
+</script>
+
+</body>
+</html>
